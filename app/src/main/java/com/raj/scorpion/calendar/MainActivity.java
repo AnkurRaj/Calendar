@@ -7,9 +7,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
-//import android.widget.Toolbar;
-import android.support.v7.widget.Toolbar;
+
+
 
 import com.molo17.customizablecalendar.library.components.CustomizableCalendar;
 import com.molo17.customizablecalendar.library.interactors.AUCalendar;
@@ -44,22 +45,23 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
         subscriptions = new CompositeDisposable();
-        calendarViewInteractor = new CalendarViewInteractor(getBaseContext(), fromDate, toDate);
+        calendarViewInteractor = new CalendarViewInteractor(this, fromDate, toDate);
 
 
 
         click.setOnClickListener((View v)->{
-            Dialog dialog = new Dialog(this,android.R.style.Theme_DeviceDefault_Light_NoActionBar_Fullscreen);
+            Dialog dialog = new Dialog(this);
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
             dialog.setContentView(R.layout.calendar_fragment);
 
-           // dialog.setCanceledOnTouchOutside(false);
+            dialog.setCanceledOnTouchOutside(false);
             dialog.show();
 
             CustomizableCalendar customizableCalendar = dialog.findViewById(R.id.customizable_calendar);
-            Button ok = dialog.findViewById(R.id.ok);
+            ImageView cross = dialog.findViewById(R.id.cross);
 
 
             DateTime today = new DateTime();
@@ -68,14 +70,12 @@ public class MainActivity extends AppCompatActivity {
             DateTime lastMonth = today.plusMonths(3).withDayOfMonth(1);
 
             final Calendar calendar = new Calendar(firstMonth, lastMonth);
-            calendar.setFirstSelectedDay(today.plusDays(4));
-            calendar.setLastSelectedDay(today.plusDays(6));
+            calendar.setFirstSelectedDay(today.plusDays(5));
+            calendar.setLastSelectedDay(today.plusDays(7));
             calendar.setMultipleSelection(true);
-
 
             AUCalendar auCalendar = AUCalendar.getInstance(calendar);
             calendarViewInteractor.updateCalendar(calendar);
-
             subscriptions.add(
                     auCalendar.observeChangesOnCalendar()
                             .subscribe(changeSet -> calendarViewInteractor.updateCalendar(calendar))
@@ -84,9 +84,10 @@ public class MainActivity extends AppCompatActivity {
             customizableCalendar.injectViewInteractor(calendarViewInteractor);
 
 
-           ok.setOnClickListener((View v1)->{
+           cross.setOnClickListener((View v1)->{
 
                dialog.dismiss();
+
 
 
             });

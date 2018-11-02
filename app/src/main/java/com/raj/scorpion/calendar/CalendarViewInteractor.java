@@ -34,6 +34,7 @@ public class CalendarViewInteractor implements ViewInteractor {
 
     }
 
+
     @Override
     public void onCustomizableCalendarBindView(View view) {
 
