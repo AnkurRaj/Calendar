@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Calendar</string>
+    <string name="day_month_year">day month year</string>
+    <string name="first_day_selected">Leaving on</string>
+    <string name="last_day_selected">Returning on</string>
+    <string name="depart_hint"><font size="12">Start Date</font></string>
+    <string name="return_hint"><font size="12">End Date</font></string>
+    <string name="button_name">Select Dates</string>
+</resources>
